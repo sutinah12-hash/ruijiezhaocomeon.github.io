@@ -20,7 +20,7 @@ window.addEventListener('hashchange', openLinkedCertificate);
 
 const filters = document.querySelector('.filters');
 if (filters) {
-  const groups = document.querySelectorAll('.award-group');
+  const groups = document.querySelectorAll('.award-group[data-level]');
   const buttons = filters.querySelectorAll('button');
   filters.hidden = false;
   filters.addEventListener('click', (event) => {

@@ -18,6 +18,14 @@ export const projects = [
     summary: ['这段国创项目短片展示了面向游乐设施的具身智能集群运维与安全管控平台，包括巡检、故障识别和安全管理。', 'This competition video presents an embodied AI platform for ride inspection, fault detection, and safety management. The video has Chinese subtitles.'],
     image: 'innovation.webp', video: 'innovation.mp4',
   },
+  {
+    id: 'fpga-retro-games',
+    category: ['电子电路课程设计 · 获评优秀', 'Electronic Circuit Design course project · Rated Excellent'],
+    title: ['基于 FPGA 的怀旧游戏大全', 'FPGA Retro Game Collection'],
+    summary: ['用 FPGA 开发板制作实体控制器，结合 Verilog HDL 和串口通信，让开发板按键控制电脑端的赛车、泡泡堂等游戏。视频展示了实机操作和电路设计。', 'I built a physical game controller with an FPGA development board, using Verilog HDL and serial communication to play racing and maze games on a computer. The video shows the controller in action and walks through the circuit design.'],
+    image: 'fpga-retro-games.webp', video: 'fpga-retro-games.mp4',
+    featured: false,
+  },
 ];
 
 export const research = [
@@ -51,10 +59,10 @@ export const honors = [
       [['第十六届「上图杯」先进成图技术与创新设计大赛', '16th Shangtu Cup: Advanced Engineering Drawing and Innovative Design'], ['一等奖', 'First prize'], ['上海市 · 负责人', 'Shanghai · Team lead'], ['drawing.webp']],
       [['全国大学生统计建模竞赛', 'National College Student Statistical Modeling Competition'], ['一等奖', 'First prize'], ['上海市 · 负责人', 'Shanghai · Team lead'], ['modeling.webp']],
       [['节能减排大赛', 'Energy Conservation and Emission Reduction Competition'], ['二等奖 × 2', 'Second prize × 2'], ['上海市', 'Shanghai'], ['energy-regional-a.webp', 'energy-regional-b.webp']],
-      [['土木工程材料竞赛', 'Civil Engineering Materials Competition'], ['二等奖', 'Second prize'], ['上海市', 'Shanghai']],
+      [['「城建星材杯」第十届上海市土木工程材料知识竞赛', '10th Shanghai Civil Engineering Materials Knowledge Competition'], ['二等奖', 'Second prize'], ['上海市 · 低年级组', 'Shanghai · Lower-year division'], ['civil-materials.webp']],
       [['全国大学生英语翻译大赛', 'National College English Translation Competition'], ['二等奖', 'Second prize'], ['上海市', 'Shanghai'], ['translation.webp']],
-      [['大学生数学竞赛', 'Chinese Mathematics Competition for College Students'], ['三等奖', 'Third prize'], ['上海赛区', 'Shanghai regional round']],
-      [['iCAN 创新大赛', 'iCAN Innovation Contest'], ['三等奖', 'Third prize'], ['上海赛区 · 负责人', 'Shanghai regional round · Team lead'], ['ican.webp']],
+      [['第十七届上海市大学生数学竞赛（高教社杯）', '17th Shanghai Mathematics Competition for College Students'], ['三等奖', 'Third prize'], ['2025 · 非数学 A 类', '2025 · Non-mathematics Division A'], ['math-shanghai.webp']],
+      [['iCAN 创新大赛', 'iCAN Innovation Contest'], ['三等奖 × 2', 'Third prize × 2'], ['上海赛区 · 2025 年（负责人）及 2026 年', 'Shanghai regional round · 2025 (team lead) and 2026'], [['ican.webp', ['2025 年证书', '2025 certificate']], ['ican-2026.webp', ['2026 年证书', '2026 certificate']]]],
       [['「笔墨中国」硬笔书法比赛', 'Ink and Brush China Hard-Pen Calligraphy Competition'], ['优秀奖', 'Award of Excellence'], ['上海市', 'Shanghai']],
     ],
   },
@@ -76,6 +84,29 @@ export const honors = [
   {
     id: 'international', title: ['国际赛事', 'International competitions'], note: ['国际竞赛获奖', 'Awards in international competitions'],
     items: [[['数维杯数学建模国际赛', 'Shuwei Cup International Mathematical Modeling Competition'], ['H 奖', 'Honorable Mention']]],
+  },
+];
+
+export const service = [
+  {
+    title: ['寒假社会实践「美好假期」', 'Beautiful Holidays winter service'],
+    note: ['2026 年完成第十二季活动，获社会实践证书，记录服务 24 小时。', 'Completed the 12th edition in 2026, with 24 hours of service recorded.'],
+    images: [['good-holidays.webp', ['社会实践证书', 'Service certificate']], ['winter-practice-notice.webp', ['同济大学结项公示节选', 'Tongji University completion notice excerpt']]],
+  },
+  {
+    title: ['优秀资助宣传大使', 'Outstanding Student Aid Outreach Ambassador'],
+    note: ['同济大学第八届「筑梦·砺行」成长营，参与学生资助政策宣传。', 'Helped communicate student financial aid policies at Tongji University’s eighth student development camp.'],
+    images: ['aid-ambassador.webp'],
+  },
+  {
+    title: ['优秀资助宣传项目', 'Outstanding Student Aid Outreach Project'],
+    note: ['2026 年同济大学寒假资助政策宣传活动，团队项目「同济助学 沙县绘梦」。', 'The team’s outreach project was recognized in Tongji University’s 2026 winter financial aid campaign.'],
+    images: ['aid-outreach.webp'],
+  },
+  {
+    title: ['蓝信封书信陪伴', 'Blue Letter pen pal program'],
+    note: ['为乡村儿童提供一对一书信陪伴，志愿服务证书记载 18 小时。', 'Corresponded one to one with a child in a rural community, with 18 hours of service recorded.'],
+    images: ['blue-letter.webp'],
   },
 ];
 

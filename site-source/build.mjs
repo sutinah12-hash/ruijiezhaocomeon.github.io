@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
-import { profile, projects, research, honors, mediaLinks, activities } from './content.mjs';
+import { profile, projects, research, honors, service, mediaLinks, activities } from './content.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const pages = {
@@ -50,11 +50,23 @@ for (const [i, lang] of ['zh-CN', 'en'].entries()) {
       </article>`;
   }
 
-  function certificate(file, title) {
+  function certificate(file, title, label) {
     const url = asset('assets/certificates/' + file);
     return `<a class="certificate" href="${url}" target="_blank" rel="noopener">
-      <img src="${url}" alt="${title}" loading="lazy" decoding="async"><span>${tr('查看大图', 'Open full image')} <span aria-hidden="true">↗</span></span>
+      <img src="${url}" alt="${title}" loading="lazy" decoding="async"><span>${label} <span aria-hidden="true">↗</span></span>
     </a>`;
+  }
+
+  function proof(title, images, summary) {
+    const files = images.map(image => typeof image === 'string' ? [image] : image);
+    const id = files[0][0].replace('.webp', '');
+    return `<details class="proof" id="proof-${id}">
+      <summary>${summary}${images.length > 1 ? ' (' + images.length + ')' : ''}</summary>
+      <div class="certificate-grid">${files.map(([file, labels]) => {
+        const label = labels ? t(labels) : tr('查看证书大图', 'Open certificate image');
+        return certificate(file, title + ' · ' + label, label);
+      }).join('')}</div>
+    </details>`;
   }
 
   function awardGroup(group) {
@@ -64,8 +76,7 @@ for (const [i, lang] of ['zh-CN', 'en'].entries()) {
         <li class="award">
           <div class="award-text"><h3>${t(title)}</h3>${note ? `<p>${t(note)}</p>` : ''}</div>
           <p class="prize">${t(prize)}</p>
-          ${images ? `<details class="proof" id="proof-${images[0].replace('.webp', '')}"><summary>${tr('查看证书', 'View certificate')}${images.length > 1 ? ' (' + images.length + ')' : ''}</summary>
-          <div class="certificate-grid">${images.map((file, index) => certificate(file, `${t(title)} · ${t(prize)}${images.length > 1 ? ' · ' + (index + 1) : ''}`)).join('')}</div></details>` : ''}
+          ${images ? proof(t(title) + ' · ' + t(prize), images, tr('查看证书', 'View certificate')) : ''}
         </li>`).join('')}</ul></section>`;
   }
 
@@ -127,7 +138,8 @@ for (const [i, lang] of ['zh-CN', 'en'].entries()) {
     </section>
     <section class="content-section" id="selected">
       ${sectionHead(tr('精选作品', 'Selected work'), link(page('work'), tr('查看全部作品', 'All work')))}
-      <div class="work-grid">${projects.map(workCard).join('')}</div>
+      <div class="work-grid">${projects.filter(item => item.featured !== false).map(workCard).join('')}</div>
+      ${projects.filter(item => item.featured === false).map(item => `<p class="additional">${link(page('work') + '#' + item.id, t(item.title))}</p>`).join('')}
     </section>
     <section class="content-section" id="research">
       ${sectionHead(tr('科研', 'Research'), link(page('work') + '#research', tr('研究详情', 'Research details')))}
@@ -165,13 +177,22 @@ for (const [i, lang] of ['zh-CN', 'en'].entries()) {
       <h2 id="scholarships">${tr('奖学金', 'Scholarships')}</h2>
       <div><strong>${tr('国家奖学金', 'National Scholarship')}</strong><span>2025–2026</span></div>
       <div><strong>${tr('国家励志奖学金', 'National Encouragement Scholarship')}</strong><span>2024–2025</span></div>
-      <p>${tr('校级 · 2024–2025 学年校一等奖学金、社会活动奖学金', 'Tongji University · First-class Scholarship and Social Activities Scholarship, 2024–2025')}</p>
+      <div><strong>${tr('社会活动奖学金', 'Social Activities Scholarship')}</strong><span>${tr('校级 · 两次', 'Tongji University · Twice')}</span></div>
+      <p>${tr('校级 · 2024–2025 学年校一等奖学金', 'Tongji University · First-class Scholarship, 2024–2025')}</p>
     </section>
     <div class="filters" role="group" aria-label="${tr('按获奖层级筛选', 'Filter awards by level')}" hidden>
       <button type="button" aria-pressed="true" data-filter="all">${tr('全部', 'All')}</button>
       ${honors.map(group => `<button type="button" aria-pressed="false" data-filter="${group.id}">${t(group.title)}</button>`).join('')}
     </div>
     ${honors.map(awardGroup).join('')}
+    <section class="award-group" id="service">
+      <div class="award-head"><h2>${tr('志愿服务与社会实践', 'Volunteering & community service')}</h2></div>
+      <ul class="award-list">${service.map(item => `
+        <li class="award">
+          <div class="award-text"><h3>${t(item.title)}</h3><p>${t(item.note)}</p></div>
+          ${proof(t(item.title), item.images, tr('查看证明', 'View documentation'))}
+        </li>`).join('')}</ul>
+    </section>
     <section class="content-section other-awards"><h2>${tr('其他荣誉', 'Other distinctions')}</h2>
       <p>${tr('同济大学年度阅读之星（两次）、弘文之星、校级优秀学生、优秀共青团员、化学「MnZn」达人、GESS 会议优秀志愿者、吴忠市爱心大使。书法作品入展三明市书协书法展，并被《中国书法报》刊发。', 'Tongji University Reading Star (twice), Hongwen Star, Outstanding Student, Outstanding Youth League Member, the MnZn chemistry distinction, Outstanding Volunteer at GESS, and a volunteer ambassador in Wuzhong. My calligraphy was exhibited by the Sanming Calligraphers Association and published in China Calligraphy Newspaper.')}</p>
       <details><summary>${tr('初高中阶段获奖', 'Earlier awards')}</summary><p>${tr('信息学奥赛省三等奖、高中生物竞赛省二等奖。「笔墨中国」高中组连续两届获省一等奖、全国二等奖。建党一百周年主题文章入选福建省优秀交流展示作品并收录成书。', 'Provincial third prize in an informatics olympiad and provincial second prize in a high school biology competition. Provincial first prize and national second prize in two consecutive editions of the Ink and Brush China calligraphy competition. An essay was selected for a Fujian provincial anthology.')}</p></details>
@@ -190,7 +211,7 @@ for (const [i, lang] of ['zh-CN', 'en'].entries()) {
     <section class="content-section" id="activities">
       ${sectionHead(tr('校园参与', 'Campus activities'))}
       <ul class="timeline">${activities.map(([title, date, text]) => `<li><p class="meta">${t(date)}</p><div><h3>${t(title)}</h3><p>${t(text)}</p></div></li>`).join('')}</ul>
-      <p class="additional">${tr('担任 SITP 智能配送机器人项目负责人、2026 年寒假社会实践优秀项目负责人。曾参与 2025 年寒假实践与「美好假期」志愿服务。', 'Led a campus innovation project on an intelligent delivery robot and an award-winning winter service project in 2026. Also took part in winter fieldwork and the Beautiful Holidays volunteer program in 2025.')}</p>
+      <p class="additional">${tr('担任 SITP 智能配送机器人项目负责人、2026 年寒假社会实践优秀项目负责人。曾参与 2025 年寒假实践与 2026 年「美好假期」活动。', 'Led a campus innovation project on an intelligent delivery robot and an award-winning winter service project in 2026. Also took part in winter fieldwork in 2025 and the Beautiful Holidays program in 2026.')} ${link(page('honors') + '#service', tr('查看志愿服务与社会实践证明', 'See volunteering and service documentation'))}</p>
     </section>
     <section class="content-section" id="education">
       ${sectionHead(tr('教育与技能', 'Education & skills'))}
