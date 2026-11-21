@@ -1,7 +1,7 @@
 export const profile = {
   intro: ['同济大学机械工程与机器人学院本科生，Tjark 实验室实习生。关注机械设计、空间感知与自主导航，立志成为一名全栈机器人工程师。', 'I’m an undergraduate at Tongji University’s School of Mechanical Engineering and Robotics and an intern at the Tjark Lab. I’m interested in mechanical design, spatial perception, and autonomous navigation, and I aspire to become a full-stack robotics engineer.'],
   email: '2454007@tongji.edu.cn',
-  resume: '简历最终版.pdf',
+  resume: '赵睿洁简历.pdf',
 };
 
 export const projects = [
